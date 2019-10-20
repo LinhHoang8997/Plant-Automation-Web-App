@@ -1,27 +1,32 @@
-import os
+from flask import Flask, render_template
+app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='C:/Users/linhd/PycharmProjects/big-query-first/big-query-plant-project-c0be32d1e67a.json'
+@app.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
 
-from google.cloud import bigquery
-client = bigquery.Client()
 
-query = (
-    "SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013` "
-    'WHERE state = "TX" '
-    "LIMIT 100"
-)
+@app.route('/')
+def home():
+    return render_template('home.html')
 
-query_job = client.query(
-    query,
-    # Location must match that of the dataset(s) referenced in the query.
-    location="US",
-)  # API request - starts the query
+@app.route('/monitor')
+def monitor():
+    return render_template('monitor.html')
 
-df = query_job.to_dataframe()
-print(df.head(5))
 
-#
-# for row in query_job:  # API request - fetches results
-#     # Row values can be accessed by field name or index
-#     assert row[0] == row.name == row["name"]
-#     print(row)
+@app.route('/forecast')
+def forecast():
+    return render_template('forecast.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)

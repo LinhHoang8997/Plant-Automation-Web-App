@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "head.html" %}
+<body>
+    <div class="container-fluid">
+        {% include "navigation.html" %}
+    <main>
+        <div class="d-flex">
+            <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Moisture</div>
+                <div class="card-body">
+                    <h4 class="card-title">Moisture Level</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Temperature</div>
+                <div class="card-body">
+                    <h4 class="card-title">Temperature (Celsius)</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="25"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Sunlight</div>
+                <div class="card-body">
+                    <h4 class="card-title">Sunlight Level</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+        {% include "footer.html" %}
+    </div>
+</body>
+</html>
