@@ -3,3 +3,5 @@
 /nsrdb_v3_0_1_1998_2016_ghi.shp
 /model/nrel_key.json
 /model/open_weather_api_key.txt
+/.idea/.name
+/model/bigquery_solar_db.py

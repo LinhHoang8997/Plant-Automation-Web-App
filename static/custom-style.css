@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Titillium+Web&display=swap');
+
+
+/*This is here for ease of use - Responsive Web Design takes time*/
+body {
+    max-width: 1000px;
+    margin: auto;
+}
+
+main {
+  margin: 1em;
+  padding: ;
+}
+
+footer {
+  margin-top: 5em;
+}
+
+footer h4 {
+    /* font-family: 'Playfair Display', serif; */
+    color: white;
+    font-size: 1.4em;
+    padding: 0.5em;
+    margin: 0;
+    /* margin-top: 1em; */
+}
+
+
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5em;
+    padding-top: 0.1em;
+}
+
+.navbar-slogan {
+    color: white;
+    font-size: 1.2em;
+    margin: 0;
+    padding: 0;
+/*    font-family: 'Playfair Display', serif;*/
+}
+
+.navbar-nav a {
+    font-size: 1.2em !important;
+}
+
+h4 {
+    font-size: 1.2em;
+}
+
+#crop-description {
+    margin: 0;
+}
+
+img {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  transition: .5s ease;
+
+}
+
+img:hover {
+    filter: grayscale(0%);
+}
+
+#area-calculator>div {
+    width: 20%;
+    text-align: center;
+    margin: auto;
+}
+
+#canvas-parent {
+    margin-left: 1.2em;
+    margin-right: 1.2em;
+    margin-top: 0;
+    padding-top: 0;
+    height: 500px;
+
+}
+
+#canvas-row {
+    margin-top: 2em;
+
+}
