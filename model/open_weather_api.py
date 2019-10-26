@@ -47,3 +47,6 @@ def getWeatherAsJSON():
     return weather_data_list
 
 getWeatherAsJSON()
+
+#v
+#
