@@ -2,6 +2,7 @@
 <html lang="en">
 {% include "head.html" %}
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
     <div class="container-fluid">
         {% include "navigation.html" %}
         <main>
@@ -74,6 +75,8 @@
                     <p> 36 </p>
               </div>
           </div>
+<!--          <canvas id="line-chart" width="800" height="450"></canvas>-->
+<!--            <script src="{{ url_for('static',filename='chartjs-sun-by-month.js') }}"></script>-->
      </main>
         {% include "footer.html" %}
     </div>

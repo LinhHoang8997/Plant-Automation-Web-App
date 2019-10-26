@@ -1,6 +1,6 @@
 import os
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='C:/Users/linhd/PycharmProjects/big-query-first/big-query-plant-project-c0be32d1e67a.json'
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=''
 
 from google.cloud import bigquery
 client = bigquery.Client()
