@@ -1,17 +1,17 @@
 import requests, pandas as pd
 from datetime import datetime
 
-def getWeatherAsJSON():
+def getWeatherAsJSON(zipcode):
     with open("model/open_weather_api_key.txt", 'r') as api_file:
         key = api_file.read()
-    zipcode = 11221
     headers = {'X-API-KEY': key}
-    params={"zip": zipcode,"mode": "json"}
+    params = {"zip": zipcode, "mode": "json"}
     open_weather_api_url = 'http://api.openweathermap.org/data/2.5/forecast'
     req = requests.post(open_weather_api_url, headers=headers, params=params)
 
     req_data = req.json()
     print(req_data)
+    print(zipcode)
 
     weather_data_list = []
 
@@ -33,20 +33,14 @@ def getWeatherAsJSON():
             record["rain_mm"] = entry['rain']['3h']
         else:
             record["rain_mm"] = 0
-        for weather_condition in entry['weather']:
-            # weather_data_dict.append({""})
-            print(weather_condition['main'])
-            print(weather_condition['description'])
+        # for weather_condition in entry['weather']:
+        #     # weather_data_dict.append({""})
+        #     print(weather_condition['main'])
+        #     print(weather_condition['description'])
         weather_data_list.append(record)
 
     # print(weather_data_list)
     weather_df = pd.DataFrame.from_records(weather_data_list)
     # function to save to database when user "Favorited" a view
-    weather_data_json = weather_df.to_json()
-    print(weather_data_json)
-    return weather_data_list
-
-getWeatherAsJSON()
-
-#v
-#
+    weather_data_json = weather_df.to_json(orient='columns')
+    return weather_data_json

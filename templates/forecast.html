@@ -2,12 +2,20 @@
 <html lang="en">
 {% include "head.html" %}
 <body>
-    <div class="container-fluid">
-        {% include "navigation.html" %}
-    <main>
-        <h1> Implement Weather API here</h1>
-    </main>
-        {% include "footer.html" %}
-    </div>
-</body>
-</html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
+       <div class="container-fluid">
+           {% include "navigation.html" %}
+       <main>
+           <h3> Check the local weather </h3>
+           <button class="btn btn-secondary" id="clickJSON"> 5-DAY WEATHER FORCAST </button>
+           <input type="text" class='form-control mt-3' id="zipcode-weather" value="11221" placeholder="Enter your ZIP code">
+           <div id="log"></div>
+           <canvas id="line-chart" width="400" height="100"></canvas>
+       </main>
+           {% include "footer.html" %}
+       </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='socketio-weather.js') }}"></script>
+   </body>
+   </html>
