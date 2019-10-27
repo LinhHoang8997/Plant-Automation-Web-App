@@ -2,7 +2,9 @@
 <html lang="en">
 {% include "head.html" %}
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static',filename='socketio-solar.js') }}"></script>
     <div class="container-fluid">
         {% include "navigation.html" %}
         <main>
@@ -49,37 +51,42 @@
                   <h4>Length (m)</h4>
                   <input type="text" class='form-control'>
               </div>
-              <div id='width-input'>
+              <div id='width-input-box'>
                   <h4>Width (m) </h4>
                   <input type="text" class='form-control'>
               </div>
-              <div id='height-input'>
+              <div id='height-input-box'>
                   <h4>Height (m) </h4>
                   <input type="text" class='form-control'>
               </div>
-              <div id='zipcode-input'>
+              <div id='zipcode-input-box'>
                   <h4>Zip Code</h4>
-                  <input type="text" class='form-control'>
+                  <input id='zipcode-solar' type="text" class='form-control' value="19122">
               </div>
+              <input type=submit id='calc-submit-button' class="btn btn-secondary" value="CHECK RESULT">
           </div>
           <div id='canvas-row' class='row justify-content-center d-flex'>
-              <div id='canvas-parent' class='w-75'>
-<!--                  <p class="placeholder-rock"> &nbsp; </p>-->
+              <div id="area-chart">
+                  <div id='canvas-parent'></div>
+                  <canvas id="solar-ghi-chart" width="800" height="250"></canvas>
               </div>
               <div id="area-spec" class="text-center">
                     <h4> Distance Between Unit</h4>
                     <p> 1m </p>
                     <h4> Lighting Level </h4>
-                    <p> 1m </p>
+                    <p id="this-month-sun"> 1m </p>
                     <h4> Optimal Unit Count</h4>
                     <p> 36 </p>
+                    <h4> Nutrition Needs (kg)</h4>
+                    <p> 13 in N </p>
+                    <p> 13 in P </p>
+                    <p> 13 in K </p>
               </div>
           </div>
-<!--          <canvas id="line-chart" width="800" height="450"></canvas>-->
-<!--            <script src="{{ url_for('static',filename='chartjs-sun-by-month.js') }}"></script>-->
+
      </main>
         {% include "footer.html" %}
     </div>
-    <script src='../static/p5-area-calc.js'></script>
+    <script src="{{ url_for('static',filename='p5-area-calc.js') }}"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 
 /*This is here for ease of use - Responsive Web Design takes time*/
 body {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: auto;
 }
 
@@ -70,14 +70,47 @@ img:hover {
     margin: auto;
 }
 
-#canvas-parent {
-    margin-left: 1.2em;
-    margin-right: 1.2em;
-    margin-top: 0;
-    padding-top: 0;
-    height: 500px;
+#area-calculator h4 {
+    background-color: #8e8c84;
+    color: white;
+    line-height: 2em;
+    margin-bottom: 0;
+    border-radius: 0.25em 0.25em 0 0;
 
 }
+
+
+#area-chart {
+    margin-top: 0;
+    padding-top: 0;
+    /*margin-left: 1.2em;*/
+    margin-right: 0;
+    width: 60%;
+}
+
+#area-spec {
+    width: 35%;
+}
+
+#area-spec> h4 {
+    font-size: 1.5em;
+}
+
+#area-spec> p {
+    font-size: 1.25em;
+}
+
+#solar-ghi-chart {
+    background-color: black;
+/*    border: 0.5em solid white;*/
+    box-sizing: border-box;
+    display: none;
+}
+
+#canvas-parent {
+    height: 500px;
+}
+
 
 #canvas-row {
     margin-top: 2em;
