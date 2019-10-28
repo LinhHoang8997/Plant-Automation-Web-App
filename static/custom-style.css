@@ -108,7 +108,14 @@ img:hover {
 }
 
 #canvas-parent {
+    margin-top: 0;
     height: 500px;
+}
+
+#sun-angle-canvas {
+    margin-bottom: 0;
+    height: 250px;
+    padding: 0;
 }
 
 

@@ -1,3 +1,10 @@
+// Define Global namespace
+var calc_data_json = {
+   solar_months: 0,
+   solar_ghi: 0
+}
+
+
 $(document).ready(function(){
     var month_index = new Date().getMonth();
     console.log(month_index);
@@ -25,7 +32,12 @@ $(document).ready(function(){
         console.log(solar_data);
 
         var month = Object.values(solar_data['Month']);
+        window.calc_data_json.solar_months = month;
+        console.log(calc_data_json.solar_months);
+
         var GHI = Object.values(solar_data['GHI']);
+        window.calc_data_json.solar_ghi = GHI;
+        console.log(window.calc_data_json.solar_ghi);
 //         var DNI = Object.values(solar_data['DNI']);
 
         $("#this-month-sun").html(GHI[month_index] + " watts/m2");
