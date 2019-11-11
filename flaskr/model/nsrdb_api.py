@@ -3,6 +3,8 @@ import timeit
 import pandas as pd
 import io  #important and useful
 
+def Hero():
+    print("Hero")
 
 def zipToCoord(zipcode):
     US_zip = pd.read_csv('model/US_zip_code.csv', usecols=['Postal Code', 'Estimated Lat', 'Estimated Long'], dtype={"Postal Code": str, 'Estimated Lat': float,  'Estimated Long': float})
