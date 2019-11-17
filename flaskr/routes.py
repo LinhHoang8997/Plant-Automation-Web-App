@@ -21,12 +21,12 @@ def add_header(r):
     return r
 
 # FLASK ROUTES
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+@app.route('/login', methods='POST')
+def login(request):
     if current_user.is_authenticated:
         return redirect(url_for('home'))
-    form = LoginForm()
-    if form.validate():
+    form = LoginForm(request.POST)
+    if request.method == 'POST' and form.validate():
         user = AppUser.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
