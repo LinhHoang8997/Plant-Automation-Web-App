@@ -1,7 +1,19 @@
 from flaskr import db
+from flaskr import login_manager
+
+import bcrypt
+from flask_login import UserMixin
+
+from wtforms import Form, StringField, validators
 
 
-class AppUser(db.Model):
+class LoginForm(Form):
+    username = StringField('Username', [validators.Length(min=10, message=u'Little short for an email address?')])
+    password = StringField('Password', [validators.Length(min=10, message=u'Little short for an email address?')])
+    # accept_rules = BooleanField('I accept the site rules', [validators.InputRequired()])
+
+
+class AppUser(UserMixin, db.Model):
     _table_ = 'User'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -10,3 +22,21 @@ class AppUser(db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+    def set_password(self, password):
+        self.password_hash = bcrypt.hashpw(password, bcrypt.gensalt(rounds=14))
+
+    def check_password(self, password):
+        return bcrypt.checkpw(password, self.password_hash)
+
+
+@login_manager.user_loader
+def user_loader(user_id):
+    """Given *user_id*, return the associated User object.
+
+    :param unicode user_id: user_id (email) user to retrieve
+
+    """
+    # return AppUser.query.get(user_id)
+    # Just using it for  now, cuz the database is not ready yet
+    return AppUser.query.get(user_id)

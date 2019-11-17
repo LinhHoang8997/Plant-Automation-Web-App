@@ -17,4 +17,5 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     SEND_FILE_MAX_AGE_DEFAULT = 0
+    SECRET_KEY = 'Generate your own here'
 
