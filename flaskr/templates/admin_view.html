@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "head.html" %}
+<body>
+    <div class="container-fluid">
+        {% include "navigation.html" %}
+    <main>
+        <div> DATABASE TESTING</div>
+        {%for item in data %}
+        <p> {{ item.username }} </p>
+        <p> {{ item.email }} </p>
+        {%endfor%}
+    </main>
+        {% include "footer.html" %}
+    </div>
+</body>
+</html>

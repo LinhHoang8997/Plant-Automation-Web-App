@@ -4,17 +4,18 @@ from flaskr import login_manager
 import bcrypt
 from flask_login import UserMixin
 
-from wtforms import Form, StringField, validators
+from flask_wtf import FlaskForm
+from wtforms import StringField, validators
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     username = StringField('Username', [validators.Length(min=10, message=u'Little short for an email address?')])
     password = StringField('Password', [validators.Length(min=10, message=u'Little short for an email address?')])
     # accept_rules = BooleanField('I accept the site rules', [validators.InputRequired()])
 
 
 class AppUser(UserMixin, db.Model):
-    _table_ = 'User'
+    __tablename__ = 'AppUser'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
