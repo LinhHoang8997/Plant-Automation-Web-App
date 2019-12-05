@@ -16,7 +16,7 @@ class LoginForm(FlaskForm):
 
 class AppUser(UserMixin, db.Model):
     __tablename__ = 'AppUser'
-    id = db.Column(db.Integer, primary_key=True)
+    appuser_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))

@@ -5,9 +5,10 @@
     <div class="container-fluid">
         {% include "navigation.html" %}
     <main>
+        <h1>Login Here</h1>
         <form method="POST" action="/login">
-            <div>{{ form.username.label }}: {{ form.username() }}</div>
-            <div>{{ form.password.label }}: {{ form.password() }}</div>
+            <div>{{ form.username.label }}: {{ form.username(class_="form-control") }}</div>
+            <div>{{ form.password.label }}: {{ form.password(class_='form-control') }}</div>
         </form>
     </main>
         {% include "footer.html" %}
