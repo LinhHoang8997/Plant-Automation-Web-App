@@ -16,10 +16,12 @@ class LoginForm(FlaskForm):
 
 class AppUser(UserMixin, db.Model):
     __tablename__ = 'AppUser'
-    appuser_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
-    email = db.Column(db.String(120), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
+    UserID = db.Column(db.Integer, primary_key=True)
+    Username = db.Column(db.String(64), index=True, unique=True)
+    Email = db.Column(db.String(120), unique=True)
+    RoleID = db.Column(db.Integer)
+    DateJoined = db.Column(db.String(120))
+    PasswordHash = db.Column(db.String(128))
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

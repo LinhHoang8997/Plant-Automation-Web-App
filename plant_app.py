@@ -1,11 +1,9 @@
-from flaskr import app
 from flaskr.routes import start_server
 from threading import Thread
 import webview
 import sys
 
 if __name__ == '__main__':
-    # app.run(debug=True)
     t = Thread(target=start_server)
     t.daemon = True
     t.start()

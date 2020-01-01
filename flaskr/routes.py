@@ -62,10 +62,10 @@ def admin_view():
     result = None
 
     # db.create_all()
-    # admin = AppUser(username='admin', email='admin@example.com')
-    # guest = AppUser(username='guest', email='guest@example.com')
-    # db.session.add(admin)
-    # db.session.add(guest)
+    admin = AppUser(username='admin', email='admin@example.com')
+    guest = AppUser(username='guest', email='guest@example.com')
+    db.session.add(admin)
+    db.session.add(guest)
     # db.session.commit()
     result = db.engine.execute(sql_query)
     db.session.close()

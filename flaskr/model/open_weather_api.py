@@ -10,8 +10,8 @@ def getWeatherAsJSON(zipcode):
     req = requests.post(open_weather_api_url, headers=headers, params=params)
 
     req_data = req.json()
-    print(req_data)
-    print(zipcode)
+    # print(req_data)
+    # print(zipcode)
 
     weather_data_list = []
 
@@ -40,7 +40,8 @@ def getWeatherAsJSON(zipcode):
         weather_data_list.append(record)
 
     # print(weather_data_list)
-    weather_df = pd.DataFrame.from_records(weather_data_list)
+    weather_df = pd.DataFrame.from_records(weather_data_list)[:len(weather_data_list)-13]
     # function to save to database when user "Favorited" a view
     weather_data_json = weather_df.to_json(orient='columns')
+    print(weather_df.tail(10))
     return weather_data_json
