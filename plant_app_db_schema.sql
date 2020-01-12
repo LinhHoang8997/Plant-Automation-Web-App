@@ -1,13 +1,10 @@
 CREATE TABLE IF NOT EXISTS AppUser (
-    UserID INT NOT NULL ,
+    UserID INTEGER PRIMARY KEY NOT NULL,
     Username VARCHAR  NOT NULL ,
     PasswordHash VARCHAR  NOT NULL ,
     DateJoined VARCHAR  NOT NULL ,
     Email VARCHAR  NOT NULL ,
-    RoleID INT  NOT NULL ,
-    PRIMARY KEY (
-        UserID
-    ),
+    RoleID INT NOT NULL ,
     CONSTRAINT uc_AppUser_Username UNIQUE (
         Username
     ),
@@ -17,7 +14,7 @@ CREATE TABLE IF NOT EXISTS AppUser (
 );
 
 CREATE TABLE IF NOT EXISTS AppUserPrivileges (
-    RoleID INT  NOT NULL ,
+    RoleID INTEGER NOT NULL ,
     RoleDescription VARCHAR(20)  NOT NULL ,
     PRIMARY KEY (
         RoleID

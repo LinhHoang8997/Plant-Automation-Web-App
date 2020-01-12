@@ -11,6 +11,8 @@ from flaskr.model.plant_data_model import AppUser, LoginForm
 from flaskr.model.nsrdb_api import getDataFromNSRDB
 from flaskr.model.open_weather_api import getWeatherAsJSON
 from sqlalchemy import text
+from sqlalchemy.sql import select
+
 from sqlite3 import OperationalError
 # @app.after_request
 # def add_header(r):
@@ -54,21 +56,32 @@ def add_user():
 
 @app.route('/monitor')
 def monitor():
-    return render_template('monitor.html')
+    #For demo purposes -> We are using pwinship3 - #4
+    demo_username = 'pwinship3'
+    # get_id_query = "SELECT
+    query_result = db.session.query(AppUser.UserID).filter_by(Username = demo_username).first()
+    demo_userid = query_result.UserID
+    print(demo_userid)
+
+    return render_template('monitor.html', demo_username=demo_username)
 
 @app.route('/admin-view')
 def admin_view():
-    sql_query = text('select * from AppUser')
-    result = None
+    sql_query = text('select Username, Email from AppUser')
+    data_fetched = db.engine.execute(sql_query).fetchall()
+    list_of_username = [item['Username'] for item in data_fetched]
 
-    # db.create_all()
-    admin = AppUser(username='admin', email='admin@example.com')
-    guest = AppUser(username='guest', email='guest@example.com')
-    db.session.add(admin)
-    db.session.add(guest)
-    # db.session.commit()
-    result = db.engine.execute(sql_query)
-    db.session.close()
+    # If admin does not exist on the database yet
+    if "admin" not in list_of_username:
+        admin = AppUser(Username='admin', Email='admin@example.com', RoleID=1)
+        admin.set_password("TestPassword")
+        admin.get_current_date()
+        db.session.add(admin)
+        db.session.commit()
+        db.session.close()
+    # else:
+    #     db.session.commit()
+    #     db.session.close()
 
     # try:
     #     db.engine.connect()
@@ -82,12 +95,11 @@ def admin_view():
     #     db.session.commit()
     #     result = AppUser.query.all()
 
-    return render_template('admin_view.html', data=result)
+    return render_template('admin_view.html', data=data_fetched)
 
 @app.route('/forecast')
 def forecast():
     return render_template('forecast.html')
-
 
 # SOCKETIO ROUTE
 @socketio.on('connect', namespace='/weather')

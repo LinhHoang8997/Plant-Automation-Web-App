@@ -10,10 +10,10 @@ class Config(object):
     username = creds['username']
     password_parsed = urllib.parse.quote_plus(creds['password'])
     hostname = '172.104.17.155:3306'
-    db_name = 'plant_app_data'
+    db_name = 'plant_app_database'
 
     # SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://{}:{}@{}/{}'.format(username, password_parsed, hostname, db_name)
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///{}.db'.format(db_name)
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(ROOT_DIR, '{}.db'.format(db_name))
     SQLALCHEMY_POOL_RECYCLE = 3600
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

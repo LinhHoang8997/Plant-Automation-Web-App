@@ -5,11 +5,17 @@
     <div class="container-fluid">
         {% include "navigation.html" %}
     <main>
-        <div> DATABASE TESTING</div>
-        {%for item in data %}
-        <p> {{ item.username }} </p>
-        <p> {{ item.email }} </p>
-        {%endfor%}
+        <h1>User List </h1>
+        <table class="table table-dark table-hover">
+            <th scope = "col"> Username </th>
+            <th scope = "col"> Email </th>
+            {% for item in data %}
+                <tr>
+                    <td> {{ item.Username }} </td>
+                    <td> {{ item.Email }} </td>
+                </tr>
+            {% endfor %}
+        </table>
     </main>
         {% include "footer.html" %}
     </div>

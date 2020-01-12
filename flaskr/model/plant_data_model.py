@@ -7,6 +7,7 @@ from flask_login import UserMixin
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators
 
+from datetime import date
 
 class LoginForm(FlaskForm):
     username = StringField('Username', [validators.Length(min=10, message=u'Little short for an email address?')])
@@ -16,21 +17,24 @@ class LoginForm(FlaskForm):
 
 class AppUser(UserMixin, db.Model):
     __tablename__ = 'AppUser'
-    UserID = db.Column(db.Integer, primary_key=True)
+    UserID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     Username = db.Column(db.String(64), index=True, unique=True)
+    PasswordHash = db.Column(db.String(128))
+    DateJoined = db.Column(db.String(120))
     Email = db.Column(db.String(120), unique=True)
     RoleID = db.Column(db.Integer)
-    DateJoined = db.Column(db.String(120))
-    PasswordHash = db.Column(db.String(128))
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<User {}>'.format(self.Username)
 
     def set_password(self, password):
-        self.password_hash = bcrypt.hashpw(password, bcrypt.gensalt(rounds=14))
+        self.PasswordHash = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt(rounds=14))
 
     def check_password(self, password):
         return bcrypt.checkpw(password, self.password_hash)
+
+    def get_current_date(self):
+        self.DateJoined = date.today().strftime("%m/%d/%y")
 
 
 @login_manager.user_loader
