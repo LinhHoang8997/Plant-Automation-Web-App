@@ -1,0 +1,36 @@
+
+Jan 5, 2020
+- I realized normalizing all tables lead to situations like this, where a complicated query needs to be written for the
+most basic view of the data.
+
+```SQL
+SELECT
+	pe.PlantID,
+	rmd.RequirementDescription as RequirementMetric,
+	pse.RequirementValue,
+	rmd.RequirementUnit
+FROM
+	PlantEncyclopedia as pe
+	INNER JOIN PlantRequirementSetItem as pse ON pse.PlantID = pe.PlantID
+	INNER JOIN RequirementMetricDefinition as rmd ON rmd.RequirementMetricID = pse.RequirementMetricID
+```
+
+Solutions: consolidate multiple tables into one, and set plan for Metadata table for review of these categories.
+Query used.
+
+```SQL
+SELECT
+	pe.*,
+	MAX(CASE WHEN rmd.RequirementDescription = 'Soil' THEN pse.RequirementValue END) AS Soil,
+	MAX(CASE WHEN rmd.RequirementDescription = 'Shade' THEN pse.RequirementValue END) AS Shade,
+	MAX(CASE WHEN rmd.RequirementDescription = 'Moisture' THEN pse.RequirementValue END) AS Moisture
+FROM
+	PlantEncyclopedia AS pe
+	INNER JOIN PlantRequirementSetItem AS pse ON pse.PlantID = pe.PlantID
+	INNER JOIN RequirementMetricDefinition AS rmd ON rmd.RequirementMetricID = pse.RequirementMetricID
+GROUP BY pe.PlantID
+ORDER BY pe.PlantName ASC
+
+
+```
+

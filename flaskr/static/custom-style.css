@@ -45,6 +45,10 @@ footer h4 {
     font-size: 1.2em !important;
 }
 
+h2 {
+    margin-top: 1.2em;
+}
+
 h4 {
     font-size: 1.2em;
 }
@@ -122,4 +126,32 @@ img:hover {
 #canvas-row {
     margin-top: 2em;
 
+}
+
+.plant_plot {
+    width: 20%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.card {
+    transition: all 0.4s ease;
+}
+.card:hover {
+    opacity: 0.7;
+}
+
+#h_barchart_plant {
+    width: 50%;
+    height: 300px;
+}
+
+#area_data_by_plot_chart {
+    height: 200px;
+    width 50%;
+}
+
+#piechart_plottype {
+    width: 45%;
+    height: 300px;
 }

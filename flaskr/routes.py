@@ -56,14 +56,25 @@ def add_user():
 
 @app.route('/monitor')
 def monitor():
-    #For demo purposes -> We are using pwinship3 - #4
-    demo_username = 'pwinship3'
+    #For demo purposes -> We are using dthormann1 - #2
+    demo_username = 'dthormann1' #Proper log-in mechanism to be implemented soon
     # get_id_query = "SELECT
     query_result = db.session.query(AppUser.UserID).filter_by(Username = demo_username).first()
     demo_userid = query_result.UserID
     print(demo_userid)
 
-    return render_template('monitor.html', demo_username=demo_username)
+    # For practice purposes, SQLAlchemy's Textual SQL is used. However, using the ORM's provided methods will provide more security
+    plot_info_query = text('''
+    SELECT
+    AppUser.Username, AppUser.DateJoined, AppUser.RoleID, PlotInfo. *, PlotTypes.PlotTypeDescription, PlantEncyclopedia.PlantName
+        FROM AppUser 
+            INNER JOIN PlotInfo USING(UserID)
+            LEFT JOIN PlotTypes USING(PlotTypeID)
+            LEFT JOIN PlantEncyclopedia USING(PlantID)
+        WHERE UserID = :userid ''')
+    plot_info_overview_data = db.engine.execute(plot_info_query, userid=demo_userid).fetchall()
+
+    return render_template('monitor.html', demo_username=demo_username, data=plot_info_overview_data)
 
 @app.route('/admin-view')
 def admin_view():
