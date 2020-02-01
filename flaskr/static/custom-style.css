@@ -155,3 +155,10 @@ img:hover {
     width: 45%;
     height: 300px;
 }
+
+#detail_view_box {
+    border: 0.25em solid;
+    border-color:  "#8e8c84";
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+}

@@ -15,6 +15,7 @@ $(document).ready(function(){
         console.log('Sent request to server for weather data');
         return false; /* Don't know what this does */
     });
+
     socket.on('data response', function(json) {
         console.log("JSON received");
         weather_data = JSON.parse(json.data);

@@ -14,7 +14,7 @@ login_manager = LoginManager(app)
 
 
 # SocketIO connected
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode="threading")
 
 # SQL Alchemy connected
 db = SQLAlchemy(app)

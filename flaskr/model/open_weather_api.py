@@ -43,5 +43,4 @@ def getWeatherAsJSON(zipcode):
     weather_df = pd.DataFrame.from_records(weather_data_list)[:len(weather_data_list)-13]
     # function to save to database when user "Favorited" a view
     weather_data_json = weather_df.to_json(orient='columns')
-    print(weather_df.tail(10))
     return weather_data_json

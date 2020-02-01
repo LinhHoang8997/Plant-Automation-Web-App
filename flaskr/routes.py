@@ -13,6 +13,8 @@ from flaskr.model.open_weather_api import getWeatherAsJSON
 from sqlalchemy import text
 from sqlalchemy.sql import select
 
+import pandas as pd
+
 from sqlite3 import OperationalError
 # @app.after_request
 # def add_header(r):
@@ -72,7 +74,10 @@ def monitor():
             LEFT JOIN PlotTypes USING(PlotTypeID)
             LEFT JOIN PlantEncyclopedia USING(PlantID)
         WHERE UserID = :userid ''')
+
     plot_info_overview_data = db.engine.execute(plot_info_query, userid=demo_userid).fetchall()
+
+    # NOTE: OUTPUT COLUMN IS ONLY TEMPORARY - DESIGN SHOULD CHANGE LATER
 
     return render_template('monitor.html', demo_username=demo_username, data=plot_info_overview_data)
 
@@ -116,12 +121,7 @@ def forecast():
 @socketio.on('connect', namespace='/weather')
 def test_connect_weather():
     emit('connection response', {'data': 'Weather Connected'})
-    print("Response sent")
-
-@socketio.on('connect', namespace='/solar')
-def test_connect_solar():
-    emit('connection response', {'data': 'Solar Connected'})
-    print("Response sent")
+    print("Connection confirmation sent")
 
 @socketio.on('request-weather-data', namespace='/weather')
 def get_weather_data(user_request):
@@ -129,11 +129,62 @@ def get_weather_data(user_request):
     emit('data response', {'data': data})
     print("JSON sent")
 
+@socketio.on('connect', namespace='/solar')
+def test_connect_solar():
+    emit('connection response', {'data': 'Solar Connected'})
+    print("Connection confirmation sent")
+
+
 @socketio.on('request-solar-data', namespace='/solar')
 def get_solar_data(user_request):
+    print("JSON sent")
     data = getDataFromNSRDB(str(user_request['data']))
     emit('data response', {'data': data})
     print("JSON sent")
+
+@socketio.on('connect', namespace='/get_monitor_data')
+def test_connect_monitor():
+    emit('connection response', {'data': 'Monitor Connected'})
+    print("Connection confirmation sent")
+
+
+@socketio.on('request-monitor-data', namespace='/get_monitor_data')
+def get_monitor_data():
+    # Should refactor so naming is consistent
+    demo_username = 'dthormann1'  # Proper log-in mechanism to be implemented soon
+    query_result = db.session.query(AppUser.UserID).filter_by(Username=demo_username).first()
+    demo_userid = query_result.UserID
+    plot_info_query = text('''
+        SELECT
+        PlotInfo. *, PlotTypes.PlotTypeDescription, PlantEncyclopedia.PlantName, OutputSum
+            FROM AppUser 
+                INNER JOIN PlotInfo USING(UserID)
+                LEFT JOIN PlotTypes USING(PlotTypeID)
+                LEFT JOIN PlantEncyclopedia USING(PlantID)
+                LEFT JOIN 
+                    (SELECT PlotID, SUM(OutputValue) AS OutputSum
+                    FROM OutputLog 
+                    WHERE datetime(Date,'unixepoch') BETWEEN datetime("now", '-3 months') AND datetime("now", 'start of day')
+                    GROUP BY PlotID)
+                USING(PlotID)
+            WHERE UserID = :userid ''')
+    cursor = db.engine.execute(plot_info_query, userid=demo_userid)
+    plot_info_all_data = pd.DataFrame.from_records([dict(row.items()) for row in cursor.fetchall()])
+    plot_info_all_data_json = plot_info_all_data.to_json(orient='records')
+    # Or use this row2dict = lambda r: {c.name: str(getattr(r, c.name)) for c in r.__table__.columns}
+    print(plot_info_all_data_json)
+
+    by_plant_data = plot_info_all_data.groupby('PlantName').sum().reset_index()[['PlantName','OutputSum']]
+    by_plant_data.loc[:, 'PlantName'] = by_plant_data['PlantName'].str.split(pat=',', expand=True)[0]
+    by_plant_data.reset_index(inplace=True)
+    by_plant_data.columns = ['id', 'x', 'y']
+    by_plant_data_json = by_plant_data.to_json(orient='records')
+    print(by_plant_data_json)
+
+    cursor.close()
+    emit('data response', {'message': 'Monitor Connected', 'all_data': plot_info_all_data_json, 'plant_data': by_plant_data_json})
+    print("Response sent")
+
 
 
 
