@@ -21,26 +21,6 @@ $(document).ready(function(){
             console.log(data_by_plant);
         }
 
-            var area_data_by_plot = [
-                {plot_name:'A', area: 50},
-                {plot_name:'B', area: 70},
-                {plot_name:'C', area: 100},
-                {plot_name:'D', area: 200}
-            ];
-
-//            var data_by_plant = [
-//                  {id: "Yellow Bamboo", "x": "Yellow Bamboo", "y": 0.0},
-//                  {id: "Clumping Bamboo", "x": "Clumping Bamboo", "y": 490.1},
-//                  {id: "Ougon-Kouchiku", "x": "Ougon-Kouchiku", "y": 0.5},
-//                  {id: "Reddish Bamboo",  "x": "Reddish Bamboo", "y": 150.4}
-//            ];
-
-            var data_by_plottype = [
-                {plottype: "Greenhouse", output: 20},
-                {plottype: "Greenhouse", output: 19},
-                {plottype: "Standard", output: 8},
-                {plottype: "Standard", output: 9}
-            ];
         //    REMEMBER TO Calculate percentages beforehand -> For both colors and tooltips
 
 //            QUIRKY BAR CHART ONLY accepts certain fieldnames ("x" and "y")???
